@@ -1,14 +1,14 @@
 start =
-    additive
+    expression:additive {return {expression : expression}}
 
 additive =
     left:multiplicative _ op:("+"/"-") _ right:additive
-        { return {tag:op, left:left, right:right}; }
+        { return {type: "binop", op:op, left:left, right:right}; }
   / multiplicative
 
 multiplicative =
     left:primary _ op:("*"/"/") _ right:multiplicative
-        { return {tag:op, left:left, right:right}; }
+        { return {bype: "binop", op:op, left:left, right:right}; }
   / primary
 
 primary =
@@ -19,19 +19,18 @@ primary =
 roll =
 	amount:integer? "d" die:integer
     	{
-          var a = amount ? amount : { constant: 1 };
+          var a = amount ? amount : { type:"constant", value: 1 };
         	return {
-            roll: {
+              type: "roll",
               amount: a,
               sides: die
-            }
           };
       }
     /integer
 
 integer =
     digits:[0-9]+
-        { return {constant:parseInt(digits.join(""), 10)}; }
+        { return {type:"constant", value:parseInt(digits.join(""), 10)}; }
 
 _ "whitespace"
   = [ \t\n\r]*
