@@ -1,0 +1,23 @@
+{
+  "name": "dieroller",
+  "version": "1.0.0",
+  "description": "Evaluate die expressions and calculate probability distributions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nubsis/dieroller.git"
+  },
+  "keywords": [
+    "dice",
+    "rpg"
+  ],
+  "author": "Nubsis <nubsis@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nubsis/dieroller/issues"
+  },
+  "homepage": "https://github.com/nubsis/dieroller#readme"
+}
