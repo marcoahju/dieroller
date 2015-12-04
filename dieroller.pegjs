@@ -8,13 +8,13 @@ additive =
 
 multiplicative =
     left:primary _ op:("*"/"/") _ right:multiplicative
-        { return {bype: "binop", op:op, left:left, right:right}; }
+        { return {type: "binop", op:op, left:left, right:right}; }
   / primary
 
 primary =
     roll
-  / "(" additive:additive ")"
-      { return additive; }
+  / "(" expression:additive ")"
+      { return {type: "parens", expression:expression}; }
 
 roll =
 	amount:integer? "d" die:integer
