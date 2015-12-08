@@ -1,8 +1,43 @@
 var probs = [];
 
+function Distribution(probs){
+
+  this.range = Object.keys(probs);
+
+  this.min = range[0];
+  this.max = Object.keys(probs)[probs.length-1];
+  console.log("min: " + this.min + " max: " + this.max);
+  this.probs = probs;
+  this.probmap = {};
+  for(var i = 0; i < this.probs.length; i++){
+    if(probs[i])
+      this.probmap[i] = this.probs[i];
+  }
+
+  this.withPercent = function(){
+    var sum = 0;
+    var probPerc = [];
+    for(var i = 0; i< this.probs.length; i++){
+      if(this.probs[i])
+        sum += this.probs[i];
+    }
+    console.log(sum);
+    var probsum = 0;
+    for(var j = 0; j< this.probs.length; j++){
+      probPerc[j] = sum*this.probs[j] ? this.probs[j]/sum : 0;
+
+      if(this.probs[j])
+        probsum += this.probs[j]/sum;
+    }
+
+    console.log(probsum);
+    return probPerc;
+  };
+
+}
+
 var genRolls = function(sum, sides)
 {
-    console.log("sum :" + sum + " sides: " + sides);
     if (sides.length === 0)
     {
         if(probs[sum])
@@ -10,7 +45,6 @@ var genRolls = function(sum, sides)
         else {
           probs[sum]=1;
         }
-        console.log("set probs[sum] :" + probs[sum]);
         return;
     }
     var top = sides[0];
@@ -31,8 +65,21 @@ var diceprob = function(target, sides)
     }
     probs = [];
     genRolls(0, sides);
-    console.log("Probability is " + (probs[target]/possibilities));
+    return probs[target]/possibilities;
 };
 
-diceprob(7, [6, 6]);
-console.log(probs);
+console.log("d6 + d8: P(7) = " + diceprob(7, [6, 6, 6, 8, 8]));
+
+probmap = {};
+for(var i = 0; i < probs.length; i++){
+  if(probs[i])
+    probmap[i] = probs[i];
+  else
+    probmap[i] = 0;
+}
+
+console.log("Probability distribution:");
+console.log(probmap);
+
+var d = new Distribution(probs);
+console.log(d.withPercent());
